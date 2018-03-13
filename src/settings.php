@@ -15,9 +15,9 @@
 	        'addContentLengthHeader' => false,
 	        // DB Mysql connection
 	        'MysqlDB' => [
-	            'db.dsn' => 'mysql:host=localhost;dbname=howitzer',
-	            'db.username' => 'root',
-	            'db.password' => 'root',
+	            'db.dsn' => 'mysql:host=*****;dbname=******',
+	            'db.username' => '****',
+	            'db.password' => '****',
 	        ],
 	    ],
 	];
