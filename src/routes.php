@@ -3,16 +3,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/home', function (Request $request, Response $response){
-$password_h = '$2y$10$spXdCt2DrBxlf61UKazxCumdoveCn.KboMQLh1e.tsl/PPMXh2.gK';
-$password = 'test123';
-//var_dump(password_verify($password, $password_h));
-//$user = new Model\User('pali');
-	//$userMapper = new Model\Mapper\UserMapper($this->pdo);
-	//$users = $this->UserMapper->findAll(array("firstname" => 'user_1'));
-	//$users = $userMapper->findAll();
-//var_dump($users);
- //return $response->withJson($data);
-	die('ah bon');
+    return $response->withJson('Home',200);
 }); 
 
 /*
