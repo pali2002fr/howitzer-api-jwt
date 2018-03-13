@@ -61,7 +61,7 @@ class authenticateMiddleware
 	        if ($user && empty($token_from_db)) {
 	            $key = "monmotsecret";
 	            $payload = array(
-	                "iss"     => "http://localhost:8888",
+	                "iss"     => "http://35.190.159.55",
 	                "iat"     => time(),
 	                "exp"     => time() + (3600 * 24 * 15),
 	                "context" => [
