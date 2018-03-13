@@ -2,7 +2,7 @@
 	// Define root path
 	defined('DS') ?: define('DS', DIRECTORY_SEPARATOR);
 	defined('ROOT') ?: define('ROOT', dirname(__DIR__) . DS);
-	defined('MYSQLCONF', "/home/pali_tchatokey/config/mysql_config.ini")
+	defined('MYSQLCONF', "/home/pali_tchatokey/config/mysql_config.ini");
 	// Load .env file
 	if (file_exists(ROOT . '.env')) {
 	    $dotenv = new Dotenv\Dotenv(ROOT);
