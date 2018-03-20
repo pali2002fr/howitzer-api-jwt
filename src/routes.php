@@ -684,22 +684,22 @@ $app->post('/shots', function (Request $request, Response $response){
         $angle = $this->AngleMapper->findById($angle_id);
 
         if(!$user) {
-        	return $response->withJson("User does not exist!", 404);
+        	return $response->withJson("User does not exist!", 400);
         }
         if(!$howitzer) {
-        	return $response->withJson("Howitzer does not exist!", 404);
+        	return $response->withJson("Howitzer does not exist!", 400);
         }
         if(!$target) {
-        	return $response->withJson("Target does not exist!", 404);
+        	return $response->withJson("Target does not exist!", 400);
         }
         if(!$distance) {
-        	return $response->withJson("Distance does not exist!", 404);
+        	return $response->withJson("Distance does not exist!", 400);
         }
         if(!$speed) {
-        	return $response->withJson("Speed does not exist!", 404);
+        	return $response->withJson("Speed does not exist!", 400);
         }
         if(!$angle) {
-        	return $response->withJson("Angle does not exist!", 404);
+        	return $response->withJson("Angle does not exist!", 400);
         }
 
         $shot_id = $this->ShotMapper->insert( 
@@ -771,9 +771,8 @@ $app->get('/results/{id:[0-9]+}', function (Request $request, Response $response
             $_toJson['shot']['angle']['angle'] = $result_obj->getShot()->getAngle()->getAngle();
             $_toJson['hit'] = $result_obj->getHit();
             $_toJson['impact'] =  $result_obj->getImpact();
-            return $response->withJson($_toJson, 200);
-        }
-        return $response->withJson("Result does not exist!", 404);
+        }  
+        return $response->withJson($_toJson, 200);
     } catch(PDOException $e) {
     	return $response->withJson($e->getMessage(), 500);
     }
@@ -784,7 +783,14 @@ $app->get('/results/{id:[0-9]+}', function (Request $request, Response $response
  */
 $app->post('/results', function (Request $request, Response $response){
     try {
+        $decoded = $this->TokenService->decodeToken($request->getHeaders());
+        $token_user_id = $decoded['result']->context->user->user_id;
     	$user_id = $request->getParam('user_id');
+
+        if($user_id != $token_user_id) {
+            return $response->withJson("User is not valid!", 400);
+        }
+
     	$shot_id = $request->getParam('shot_id');
     	$impact = $request->getParam('impact');
     	$hit = $request->getParam('hit');
@@ -793,19 +799,19 @@ $app->post('/results', function (Request $request, Response $response){
         $shot = $this->ShotMapper->findById($shot_id);
 
         if(!$user) {
-        	return $response->withJson("User does not exist!", 404);
+        	return $response->withJson("User does not exist!", 400);
         }
 
         if(!$shot) {
-        	return $response->withJson("Shot does not exist!", 404);
+        	return $response->withJson("Shot does not exist!", 400);
         }
 
         if($hit =! 0 && $hit =! 1) {
-        	return $response->withJson("Hit does not exist!", 404);
+        	return $response->withJson("Hit does not exist!", 400);
         }
 
-        if(!is_float($impact)) {
-        	return $response->withJson("Impact does not exist!", 404);
+        if(!$impact) {
+        	return $response->withJson("Impact does not exist!", 400);
         }
 
         $result_id = $this->ResultMapper->insert($shot, $user, $hit, $impact);

@@ -13,6 +13,12 @@
 	    );
 	};
 
+	// API Secret
+	$container['api'] = function ($c) {
+	    $settings = $c->get('settings')['API'];
+	    return $settings['api.secret'];
+	};
+
 	$container['UserMapper'] = function ($container) {
 	    return new App\Model\Mapper\UserMapper($container['pdo']);
 	};
@@ -70,4 +76,8 @@
 
 	$container['UserService'] = function ($container) {
 	    return new App\Service\UserService($container['UserMapper']);
+	};
+
+	$container['TokenService'] = function ($container) {
+	    return new App\Service\TokenService($container['api']);
 	};

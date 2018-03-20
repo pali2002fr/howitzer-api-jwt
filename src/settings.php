@@ -2,15 +2,11 @@
 	// Define root path
 	defined('DS') ?: define('DS', DIRECTORY_SEPARATOR);
 	defined('ROOT') ?: define('ROOT', dirname(__DIR__) . DS);
-	define('MYSQLCONF', "/home/pali_tchatokey/config/mysql_config.ini");
-	
 	// Load .env file
 	if (file_exists(ROOT . '.env')) {
 	    $dotenv = new Dotenv\Dotenv(ROOT);
 	    $dotenv->load();
 	}
-
-	$ini_mysql = parse_ini_file(MYSQLCONF, true);
 
 	return [
 	    'settings' => [
@@ -19,9 +15,13 @@
 	        'addContentLengthHeader' => false,
 	        // DB Mysql connection
 	        'MysqlDB' => [
-	            'db.dsn' => $ini_mysql['mysql']['dsn'],
-	            'db.username' => $ini_mysql['mysql']['username'],
-	            'db.password' => $ini_mysql['mysql']['password'],
+	            'db.dsn' => 'mysql:host=localhost;dbname=howitzer',
+	            'db.username' => 'root',
+	            'db.password' => 'root',
 	        ],
+	        //API Secret
+	        'API' => [
+	        	'api.secret' => 'monmotsecret'
+	        ]
 	    ],
 	];

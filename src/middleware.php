@@ -15,7 +15,6 @@ class authenticateMiddleware
 
     public function __invoke(Request $request, Response $response, $next)
     {
-    	$resp = array("status" => "");
     	$username = trim($request->getParam('username'));
     	$password = trim($request->getParam('password'));
 
@@ -61,7 +60,7 @@ class authenticateMiddleware
 	        if ($user && empty($token_from_db)) {
 	            $key = "monmotsecret";
 	            $payload = array(
-	                "iss"     => "http://35.190.159.55",
+	                "iss"     => "http://35.190.159.55:8080",
 	                "iat"     => time(),
 	                "exp"     => time() + (3600 * 24 * 15),
 	                "context" => [
@@ -105,25 +104,16 @@ class restrictionMiddleware
 
 	public function __invoke(Request $request, Response $response, $next)
     {
-    	$jwt = $request->getHeaders();
-	    $key = "monmotsecret";
+    	$decoded = $this->container->TokenService->decodeToken($request->getHeaders());
 
-	    try {
-	    	sscanf( $jwt['HTTP_AUTHORIZATION'][0], 'Bearer %s',$token);
-	        $decoded = JWT::decode($token, $key, array('HS256'));
-	        
-	    } catch (UnexpectedValueException $e) {
-			$response = $response->withJson($e->getMessage(), 500);
-	    }
-
-	    if (isset($decoded)) {
+	    if (isset($decoded) && $decoded['status'] === 200) {
 	    	$conditions = array(
 	    		'expiration_date' => array(
 	        		'value' => time(),
 	        		'operator' => '>'
 	        	),
 	        	'user_id' => array(
-	        		'value' => $decoded->context->user->user_id,
+	        		'value' => $decoded['result']->context->user->user_id,
 	        		'operator' => '='
 	        	)
 	        );

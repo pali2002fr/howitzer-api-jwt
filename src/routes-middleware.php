@@ -56,8 +56,7 @@ $app->group('/', function () {
 	//Authenticate
 	$this->post('login', function (Request $request, Response $response, $args) {
 		$response->withStatus(200);
-	//})->add( new authenticateMiddleware($this->getContainer()) );
-	});	
+	})->add( new authenticateMiddleware($this->getContainer()) );
 
 	//Users
 	$this->group('users', function () {
@@ -867,8 +866,7 @@ $app->group('/', function () {
 				});
 			});
 		});
-	//})->add( new restrictionMiddleware($this->getContainer()) );
-	});
+	})->add( new restrictionMiddleware($this->getContainer()) );
 
 	//Get ranking
 	$this->get('ranking', function ($request, $response){
