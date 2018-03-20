@@ -814,7 +814,7 @@ $app->post('/results', function (Request $request, Response $response){
         	return $response->withJson("Impact does not exist!", 400);
         }
 
-        $result_id = $this->ResultMapper->insert($shot, $user, $hit, $impact);
+        $result_id = $this->ResultMapper->insert($shot, $user, (int)$hit, $impact);
 
         return $response->withJson($result_id, 200);
     } catch(PDOException $e) {

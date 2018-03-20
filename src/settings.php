@@ -2,7 +2,9 @@
 	// Define root path
 	defined('DS') ?: define('DS', DIRECTORY_SEPARATOR);
 	defined('ROOT') ?: define('ROOT', dirname(__DIR__) . DS);
-	define('CONFIG', "/home/pali_tchatokey/config/config.ini");
+	define('CONFIGPROD', "/home/pali_tchatokey/config/config.ini");
+	define('CONFIGDEV', "/Users/palitcha-tokey/config/config.ini");
+	
 	
 	// Load .env file
 	if (file_exists(ROOT . '.env')) {
@@ -10,7 +12,7 @@
 	    $dotenv->load();
 	}
 
-	$ini_config = parse_ini_file(CONFIG, true);
+	$ini_config = parse_ini_file(CONFIGPROD, true);
 
 	return [
 	    'settings' => [

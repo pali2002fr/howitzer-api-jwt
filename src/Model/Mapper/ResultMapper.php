@@ -45,7 +45,7 @@ class ResultMapper extends AbstractDataMapper implements ResultMapperInterface {
 			return $this->adapter->delete($this->entityTable, "id_user = $id");
 	}
 	
-	public function getTopAcurateUsersByLimit($number){
+	public function getTopAcurateUsersByLimit($number = 5){
 		$sql = "SELECT id_user, count(*) as 'shots', AVG(impact) as 'avg'
 								FROM result
 								GROUP BY  id_user
