@@ -29,7 +29,7 @@ class App
         require __DIR__ . '/../src/middleware.php';
 
         // Register routes
-        require __DIR__ . '/../src/routes-middleware.php';
+        require __DIR__ . '/../src/routes.php';
 
         $this->app = $app;
         //$this->setUpDatabaseManager();
