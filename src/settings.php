@@ -12,7 +12,7 @@
 	    $dotenv->load();
 	}
 
-	$ini_config = parse_ini_file(CONFIGPROD, true);
+	$ini_config = parse_ini_file(CONFIGDEV, true);
 
 	return [
 	    'settings' => [
