@@ -1004,26 +1004,100 @@ $app->get(
                 <b>How it works</b> : You pick a user, weight of howitzer, distance of target, size of the target, speed, angle of shot and you fire.
                 The results are saved in the database and a stats are processed against that.
                 <br/><br/
-                <b>Demo:</b> <a href="http://ec2-52-90-251-194.compute-1.amazonaws.com/public/">http://ec2-52-90-251-194.compute-1.amazonaws.com/public/</a>
+                <b>Demo:</b> <a href="http://35.190.159.55:8080">http://35.190.159.55:8080</a>
             </p>
             <section>
                 <h2>Technologies</h2>
                 <ul>
-                    <li>Linux(Amazon Web Services Cloud) : Ubuntu 12
+                    <li>Linux(Google Cloud Platform) : Ubuntu 14
                     <li>Apache : Apache</li>
                     <li>Mysql : version 5.5</li>
                     <li>PHP : PHP 5 & Framework Slim</li>
                     <li>HTML / CSS : Bootstrap Library</li>
-                    <li>Javascrpit : Straight Javascrpit, Jquery, Handlebars</li>
+                    <li>Javascrpit : Angular 5, angular-jwt</li>
                 </ul>
             </section>
             <section>
                 <h1>API</h1>
                 <section>
+                    <h2>Register</h2>
+                    <p>Return User ID</p>
+                    <h4>URL</h4>
+                    <p>http://35.190.159.55:80/register</p>
+                    <h4>Method</h4>
+                    <p>POST</p>
+                    <h4>URL Params</h4>
+                    <p>None</p>
+                    <h4>Data Params</h4>
+                    <p>
+                        <i>Required:</i> 
+                        <ul>
+                            <li>`firstname=[alpha numeric]`</li>
+                            <li>`lastname=[alpha numeric]`</li>
+                            <li>`username=[alpha numeric]`</li>
+                            <li>`password=[alpha numeric]`</li>
+                        </ul>
+                    </p>
+
+                    <h4>Success Response:</h4>
+                    <ul>
+                        <li><b>Code</b>: 200</li>
+                        <li><b>Content</b>: <code>
+                        eyJ0eXAiOiJKV1QiLCJhbGciOiJI<br>UzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8zNS4<br>xOTAuMTU5LjU1IiwiaWF0Ij<br>oxNTIxMDAyMzYxLCJleHAiOjE1MjIyOTg<br>zNjEsImNvbnRleHQiOnsidXNlc<br>iI6eyJ1c2VybmFtZSI6I
+                        mxpcGEiLCJ1c2VyX2lkIjozOH19fQ.<br>J_0cwa7aAAKi_gdrCFsTvlD3YvJZqitBgl8Z1<br>
+                        HPPC3c</code></li>
+                    </ul>
+                </section>
+                <hr>
+                <section>
+                    <h2>Login</h2>
+                    <p>Return status 200, 400 or 500</p>
+                    <h4>URL</h4>
+                    <p>http://35.190.159.55:80/login</p>
+                    <h4>Method</h4>
+                    <p>POST</p>
+                    <h4>URL Params</h4>
+                    <p>None</p>
+                    <h4>Data Params</h4>
+                    <p>
+                        <i>Required:</i>
+                        <ul>
+                            <li>`username=[alpha numeric]`</li>
+                            <li>`password=[alpha numeric]`</li>
+                        </ul>
+                    </p>
+
+                    <h4>Success Response:</h4>
+                    <ul>
+                        <li><b>Code</b>: 200</li>
+                        <li><b>Content</b>: <code><br></code>
+                    </ul>
+                </section>
+                <hr>
+                <section>
+                    <h2>Username already exists</h2>
+                    <p>Return boolean.</p>
+                    <h4>URL</h4>
+                    <p>http://35.190.159.55:80/users/username:/alreadyexists</p>
+                    <h4>Method</h4>
+                    <p>GET</p>
+                    <h4>URL Params</h4>
+                    <p>Required: `username=[string]`</p>
+                    <h4>Data Params</h4>
+                    <p>None</p>
+
+                    <h4>Success Response:</h4>
+                    <ul>
+                        <li><b>Code</b>: 200</li>
+                        <li><b>Content</b>: <code>True</code>
+                    </ul>
+                </section>
+                <hr>
+                <section>
                     <h2>Show Multiple user</h2>
                     <p>Returns json data about a multiple users.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/users</p>
+                    <p>http://35.190.159.55:80/users</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1033,7 +1107,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"user": [{"id":"1","name":"user_1"},{"id":"2","name":"user_2"}]}</code></li>
+                        <li><b>Content</b>: <code> [{"id":"1","name":"user_1"},{"id":"2","name":"user_2"}]</code></li>
                     </ul>
                 </section>
                 <hr>
@@ -1041,7 +1115,7 @@ $app->get(
                     <h2>Show Single User</h2>
                     <p>Returns json data about a single user.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/users/:id</p>
+                    <p>http://35.190.159.55:80/users/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1057,22 +1131,73 @@ $app->get(
                 </section>
                 <hr>
                 <section>
-                    <h2>Create User</h2>
-                    <p>Returns json data about user ID.</p>
+                    <h2>Update single user: firstname, lastname</h2>
+                    <p>Returns boolean</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/users</p>
+                    <p>http://35.190.159.55:80/users/:id</p>
                     <h4>Method</h4>
-                    <p>POST</p>
+                    <p>PUT</p>
                     <h4>URL Params</h4>
-                    <p>None</p>
-                        
+                    <p>
+                        <i>Required:</i> `id=[integer]`</p>
                     <h4>Data Params</h4>
-                    <p><i>Required:</i> `name=[alpha numeric]`</p>
-                    
+                    <p>
+                        <i>Required:</i> 
+                        <ul>
+                            <li>`firstname=[string]`</li>
+                            <li>`lastname=[string]`</li>
+                        </ul>
+                    </p>
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{user_id: 12}</code></li>
+                        <li><b>Content</b>: <code>True</code></li>
+                    </ul>
+                </section>
+                <hr>
+                <section>
+                    <h2>Update single user: username</h2>
+                    <p>Returns boolean</p>
+                    <h4>URL</h4>
+                    <p>http://35.190.159.55:80/users/id:/update/username</p>
+                    <h4>Method</h4>
+                    <p>PUT</p>
+                    <h4>URL Params</h4>
+                    <p>
+                        <i>Required:</i> `id=[integer]`</p>
+                    <h4>Data Params</h4>
+                    <p>
+                        <i>Required:</i>`username=[string]`
+                    </p>
+                    <h4>Success Response:</h4>
+                    <ul>
+                        <li><b>Code</b>: 200</li>
+                        <li><b>Content</b>: <code>True</code></li>
+                    </ul>
+                </section>
+                <hr>
+                <section>
+                    <h2>Change password</h2>
+                    <p>Returns boolean</p>
+                    <h4>URL</h4>
+                    <p>http://35.190.159.55:80/users/id:/update/password</p>
+                    <h4>Method</h4>
+                    <p>PUT</p>
+                    <h4>URL Params</h4>
+                    <p>
+                        <i>Required:</i> `id=[integer]`</p>
+                    <h4>Data Params</h4>
+                    <p>
+                        <i>Required:</i>
+                        <ul>
+                            <li>`oldpassword=[string]`</li>
+                            <li>`newpassword=[string]`</li>
+                        </ul>    
+                    </p>
+                    <h4>Success Response:</h4>
+                    <ul>
+                        <li><b>Code</b>: 200</li>
+                        <li><b>Content</b>: <code>True</code></li>
                     </ul>
                 </section>
                 <hr>
@@ -1080,7 +1205,7 @@ $app->get(
                     <h2>Get List Howitzer</h2>
                     <p>Returns json data about a multiple howitzers.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/howitzers</p>
+                    <p>http://35.190.159.55:80/howitzers</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1090,7 +1215,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"howitzer": [{"id":"1","weight":"1000"},{"id":"2","weight":"2000"}]}</code></li>
+                        <li><b>Content</b>: <code>[{"id":"1","weight":"1000"},{"id":"2","weight":"2000"}]</code></li>
                     <ul>
                 </section>
                 <hr>
@@ -1098,7 +1223,7 @@ $app->get(
                     <h2>Show Single Howitzer</h2>
                     <p>Returns json data about a single howitzer.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/howitzers/:id</p>
+                    <p>http://35.190.159.55:80/howitzers/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1109,7 +1234,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"howitzer": {"id":"1","weight":"1000"}}</code></li>
+                        <li><b>Content</b>: <code>{"id":"1","weight":"1000"}</code></li>
                     </ul>
                 </section>
                 <hr>
@@ -1117,7 +1242,7 @@ $app->get(
                     <h2>Create Howitzer</h2>
                     <p>Returns json data about howitzer ID.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/howitzers</p>
+                    <p>http://35.190.159.55:80/howitzers</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1137,7 +1262,7 @@ $app->get(
                     <h2>Get List Distance</h2>
                     <p>Returns json data about a multiple distances.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/distances</p>
+                    <p>http://35.190.159.55:80/distances</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1147,7 +1272,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"distances": [{"id":"1","distance":"1000"},{"id":"2","distance":"2000"}]}</code></li>
+                        <li><b>Content</b>: <code>[{"id":"1","distance":"1000"},{"id":"2","distance":"2000"}]</code></li>
                     <ul>
                 </section>
                 <hr>
@@ -1155,7 +1280,7 @@ $app->get(
                     <h2>Show Single Distance</h2>
                     <p>Returns json data about a single distance.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/distances/:id</p>
+                    <p>http://35.190.159.55:80/distances/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1167,7 +1292,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"distance": {"id":"1","distance":"1000"}}</code></li>
+                        <li><b>Content</b>: <code>{"id":"1","distance":"1000"}</code></li>
                     </ul>
                 </section>
                 <hr>
@@ -1175,7 +1300,7 @@ $app->get(
                     <h2>Create Distance</h2>
                     <p>Returns json data about distance ID.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/distances</p>
+                    <p>http://35.190.159.55:80/distances</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1195,7 +1320,7 @@ $app->get(
                     <h2>Get List Target</h2>
                     <p>Returns json data about a multiple targets.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/targets</p>
+                    <p>http://35.190.159.55:80/targets</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1205,7 +1330,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"targets": [{"id":"1","size":"10"},{"id":"2","size":"20"}]}</code></li>
+                        <li><b>Content</b>: <code>[{"id":"1","size":"10"},{"id":"2","size":"20"}]</code></li>
                     <ul>
                 </section>
                 <hr>
@@ -1213,7 +1338,7 @@ $app->get(
                     <h2>Show Single Target</h2>
                     <p>Returns json data about a single target.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/targets/:id</p>
+                    <p>http://35.190.159.55:80/targets/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1225,7 +1350,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"target": {"id":"1","size":"10"}}</code></li>
+                        <li><b>Content</b>: <code>{"id":"1","size":"10"}</code></li>
                     </ul>
                 </section>
                 <hr>
@@ -1233,7 +1358,7 @@ $app->get(
                     <h2>Create Target</h2>
                     <p>Returns json data about target ID.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/targets</p>
+                    <p>http://35.190.159.55:80/targets</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1253,7 +1378,7 @@ $app->get(
                     <h2>Get List Speed</h2>
                     <p>Returns json data about a multiple speeds.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/speeds</p>
+                    <p>http://35.190.159.55:80/speeds</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1263,7 +1388,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"speeds": [{"id":"1","speed":"10"},{"id":"2","speed":"20"}]}</code></li>
+                        <li><b>Content</b>: <code>[{"id":"1","speed":"10"},{"id":"2","speed":"20"}]</code></li>
                     <ul>
                 </section>
                 <hr>
@@ -1271,7 +1396,7 @@ $app->get(
                     <h2>Show Single Speed</h2>
                     <p>Returns json data about a single speed.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/speeds/:id</p>
+                    <p>http://35.190.159.55:80/speeds/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1283,7 +1408,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"speed": {"id":"1","speed":"10"}}</code></li>
+                        <li><b>Content</b>: <code>{"id":"1","speed":"10"}</code></li>
                     </ul>
                 </section>
                 <hr>
@@ -1291,7 +1416,7 @@ $app->get(
                     <h2>Create Speed</h2>
                     <p>Returns json data about speed ID.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/speeds</p>
+                    <p>http://35.190.159.55:80/speeds</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1311,7 +1436,7 @@ $app->get(
                     <h2>Get List Angle</h2>
                     <p>Returns json data about a multiple angles.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/angles</p>
+                    <p>http://35.190.159.55:80/angles</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1321,7 +1446,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"angles": [{"id":"1","angle":"10"},{"id":"2","angle":"20"}]}</code></li>
+                        <li><b>Content</b>: <code>[{"id":"1","angle":"10"},{"id":"2","angle":"20"}]</code></li>
                     <ul>
                 </section>
                 <hr>
@@ -1329,7 +1454,7 @@ $app->get(
                     <h2>Show Single Angle</h2>
                     <p>Returns json data about a single angle.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/angles/:id</p>
+                    <p>http://35.190.159.55:80/angles/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1349,7 +1474,7 @@ $app->get(
                     <h2>Create Angle</h2>
                     <p>Returns json data about angle ID.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/angles</p>
+                    <p>http://35.190.159.55:80/angles</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1369,7 +1494,7 @@ $app->get(
                     <h2>Get List Shot</h2>
                     <p>Returns json data about a multiple shots.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/shots</p>
+                    <p>http://35.190.159.55:80/shots</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1379,7 +1504,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"shots": [{"id":"1","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"1","angle":"5"}},{"id":"21","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"5","angle":"25"}}]}</code></li>
+                        <li><b>Content</b>: <code>[{"id":"1","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"1","angle":"5"}},{"id":"21","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"5","angle":"25"}}]</code></li>
                     <ul>
                 </section>
                 <hr>
@@ -1387,7 +1512,7 @@ $app->get(
                     <h2>Show Single Shot</h2>
                     <p>Returns json data about a single shot.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/shots/:id</p>
+                    <p>http://35.190.159.55:80/shots/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1399,7 +1524,7 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"shot": {"id":"1","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"1","angle":"5"}}}</code></li>
+                        <li><b>Content</b>: <code>{"id":"1","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"1","angle":"5"}}</code></li>
                     </ul>
                 </section>
                 <hr>
@@ -1407,7 +1532,7 @@ $app->get(
                     <h2>Create Shot</h2>
                     <p>Returns json data about shot ID.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/shots</p>
+                    <p>http://35.190.159.55:80/shots</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1437,7 +1562,7 @@ $app->get(
                     <h2>Get List Result</h2>
                     <p>Returns json data about a multiple results.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/results</p>
+                    <p>http://35.190.159.55:80/results</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1447,7 +1572,31 @@ $app->get(
                     <h4>Success Response:</h4>
                     <ul>
                         <li><b>Code</b>: 200</li>
-                        <li><b>Content</b>: <code>{"results": [{"id":"1","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"1","angle":"5"}},{"id":"21","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"5","angle":"25"}}]}</code></li>
+                        <li><b>Content</b>: <code>[{"id":"1","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"1","angle":"5"}},{"id":"21","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"5","angle":"25"}}]</code></li>
+                    <ul>
+                </section>
+                <hr>
+                <section>
+                    <h2>Get results by single user</h2>
+                    <p>Returns json data about a multiple results.</p>
+                    <h4>URL</h4>
+                    <p>http://35.190.159.55:80/users/id:/results/orderby:</p>
+                    <h4>Method</h4>
+                    <p>GET</p>
+                    <h4>URL Params</h4>
+                    <p>
+                        <i>Required:</i> 
+                        <ul>
+                            <li>`id=[integer]`</li>
+                            <li>`orderby=[asc|desc]`</li>
+                        </ul>
+                    </p>
+                    <h4>Data Params</h4>
+                    <p>None</p>
+                    <h4>Success Response:</h4>
+                    <ul>
+                        <li><b>Code</b>: 200</li>
+                        <li><b>Content</b>: <code>[{"id":"1","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"1","angle":"5"}},{"id":"21","user":{"id":"1","name":"user_1"},"howitzer":{"id":"1","weight":"1000"},"target":{"id":"1","size":"10"},"distance":{"id":"1","distance":"100"},"speed":{"id":"1","speed":"5"},"angle":{"id":"5","angle":"25"}}]</code></li>
                     <ul>
                 </section>
                 <hr>
@@ -1455,7 +1604,7 @@ $app->get(
                     <h2>Show Single Result</h2>
                     <p>Returns json data about a single shot.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/results/:id</p>
+                    <p>http://35.190.159.55:80/results/:id</p>
                     <h4>Method</h4>
                     <p>GET</p>
                     <h4>URL Params</h4>
@@ -1475,7 +1624,7 @@ $app->get(
                     <h2>Create Result</h2>
                     <p>Returns json data about result ID.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/results</p>
+                    <p>http://35.190.159.55:80/results</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1503,7 +1652,7 @@ $app->get(
                     <h2>Show List Top Best Shotters</h2>
                     <p>Returns json data about a Top Best Shotters.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/top/:limit</p>
+                    <p>http://35.190.159.55:80/top/:limit</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1522,7 +1671,7 @@ $app->get(
                     <h2>Show Total Shots</h2>
                     <p>Returns json data about a total shotters.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/shots-total</p>
+                    <p>http://35.190.159.55:80/shots-total</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1541,7 +1690,7 @@ $app->get(
                     <h2>Show Total Users</h2>
                     <p>Returns json data about a Total users.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/users-total</p>
+                    <p>http://35.190.159.55:80/users-total</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1560,7 +1709,7 @@ $app->get(
                     <h2>Show Average Shot</h2>
                     <p>Returns json data about average shot.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/shots-avg</p>
+                    <p>http://35.190.159.55:80/shots-avg</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1579,7 +1728,7 @@ $app->get(
                     <h2>Show Ranking by User</h2>
                     <p>Returns json data about ranking by user.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/shots-avg</p>
+                    <p>http://35.190.159.55:80/shots-avg</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1598,7 +1747,7 @@ $app->get(
                     <h2>Show Total Shots by User</h2>
                     <p>Returns json data about total shots by user.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/shots-total-by-user/:id</p>
+                    <p>http://35.190.159.55:80/shots-total-by-user/:id</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1617,7 +1766,7 @@ $app->get(
                     <h2>Show Calculate Impact on Target</h2>
                     <p>Returns json data about calculate impact on target.</p>
                     <h4>URL</h4>
-                    <p>http://ec2-52-90-251-194.compute-1.amazonaws.com/calculate-trajectoire/:id</p>
+                    <p>http://35.190.159.55:80/calculate-trajectoire/:id</p>
                     <h4>Method</h4>
                     <p>POST</p>
                     <h4>URL Params</h4>
@@ -1631,6 +1780,7 @@ $app->get(
                         <li><b>Content</b>: <code>{"impact":101.38639426832,"user_id":"1","shot_id":"1","hit":0}</code></li>
                     </ul>
                 </section>
+                <br>
             </section>
         </body>
     </html>
