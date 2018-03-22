@@ -1001,8 +1001,8 @@ $app->get(
             <h1>Welcome!</h1>
             <p>
                 Here is a Howitzer Game application as my sample code.<br>
-                <b>How it works</b> : You pick a user, weight of howitzer, distance of target, size of the target, speed, angle of shot and you fire.
-                The results are saved in the database and a stats are processed against that.
+                <b>How it works</b> : You sign up, sign in as a user and then you pick a weight of howitzer, distance of target, size of the target, speed, angle of shot and you fire.
+                The results are saved in the database and a stats are processed.
                 <br/><br/
                 <b>Demo:</b> <a href="http://35.190.159.55:8080">http://35.190.159.55:8080</a>
             </p>
